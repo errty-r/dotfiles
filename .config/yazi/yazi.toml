@@ -1,0 +1,13 @@
+[opener]
+edit = [
+    {
+        run = 'kitty fish -C "nvim; exit"', 
+        orphan=true,
+        desc = "$EDITOR",
+        for = "unix"
+    },
+]
+
+[mgr]
+show_hidden = true
+

@@ -14,5 +14,5 @@ vim.opt.termguicolors = true
 
 local fish_path = vim.fn.executable("fish") == 1 and "fish" or nil
 if fish_path then
-  vim.opt.shell = fish_path
+	vim.opt.shell = fish_path
 end

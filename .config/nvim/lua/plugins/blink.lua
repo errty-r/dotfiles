@@ -1,67 +1,89 @@
 return {
-  "saghen/blink.cmp",
+	"saghen/blink.cmp",
 
-  opts = {
-    appearance = {
-      nerd_font_variant = "mono",
-    },
+	opts = {
+		appearance = {
+			nerd_font_variant = "mono",
+		},
 
-    completion = {
-      ghost_text = {
-        enabled = true,
-      },
+		fuzzy = {
+			implementation = "prefer_rust_with_warning",
+		},
 
-      documentation = {
-        auto_show = true,
-        auto_show_delay_ms = 150,
-        -- Настройка прозрачности для окна документации
-        window = {
-          border = "rounded",
-          winhighlight = "Normal:None,FloatBorder:None,CursorLine:BlinkCmpDocCursorLine,Search:None",
-        },
-      },
+		keymap = {
+			preset = "default",
 
-      menu = {
-        border = "rounded",
-        -- Настройка прозрачности для главного меню подсказок
-        winhighlight = "Normal:None,FloatBorder:None,CursorLine:BlinkCmpMenuSelection,Search:None",
+			["<Tab>"] = {
+				"select_next",
+				"fallback",
+			},
 
-        draw = {
-          treesitter = { "lsp" },
-        },
-      },
-    },
+			["<S-Tab>"] = {
+				"select_prev",
+				"fallback",
+			},
 
-    signature = {
-      enabled = true,
-      -- Настройка прозрачности для сигнатур функций
-      window = {
-        border = "rounded",
-        winhighlight = "Normal:None,FloatBorder:None,CursorLine:BlinkCmpSignatureCursorLine,Search:None",
-      },
-    },
+			["<CR>"] = {
+				"accept",
+				"fallback",
+			},
+		},
 
-    fuzzy = {
-      implementation = "lua",
-    },
+		sources = {
+			default = {
+				"lsp",
+				"path",
+				"snippets",
+				"buffer",
+			},
+		},
 
-    keymap = {
-      preset = "default",
+		completion = {
+			ghost_text = {
+				enabled = true,
+			},
 
-      ["<Tab>"] = {
-        "select_next",
-        "fallback",
-      },
+			accept = {
+				auto_brackets = {
+					enabled = true,
+				},
+			},
 
-      ["<S-Tab>"] = {
-        "select_prev",
-        "fallback",
-      },
+			list = {
+				selection = {
+					preselect = true,
+					auto_insert = false,
+				},
+			},
 
-      ["<CR>"] = {
-        "accept",
-        "fallback",
-      },
-    },
-  },
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 50,
+
+				window = {
+					border = "rounded",
+					winhighlight = "Normal:None,FloatBorder:None,CursorLine:BlinkCmpDocCursorLine,Search:None",
+				},
+			},
+
+			menu = {
+				border = "rounded",
+
+				winhighlight = "Normal:None,FloatBorder:None,CursorLine:BlinkCmpMenuSelection,Search:None",
+
+				draw = {
+					treesitter = { "lsp" },
+				},
+			},
+		},
+
+		signature = {
+			enabled = true,
+
+			window = {
+				border = "rounded",
+				winhighlight = "Normal:None,FloatBorder:None,CursorLine:BlinkCmpSignatureCursorLine,Search:None",
+			},
+		},
+	},
 }

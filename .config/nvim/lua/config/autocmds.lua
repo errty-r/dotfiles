@@ -1,73 +1,85 @@
-local groups = {
-	"Normal",
-	"NormalNC",
-	"NormalFloat",
-	"FloatBorder",
-	"FloatTitle",
-	"SignColumn",
-	"LineNr",
-	"CursorLineNr",
-	"EndOfBuffer",
-
-	"StatusLine",
-	"StatusLineNC",
-	"WinSeparator",
-	"VertSplit",
-	"WinBar",
-	"WinBarNC",
-
-	"NeoTreeNormal",
-	"NeoTreeNormalNC",
-	"NeoTreeWinSeparator",
-
-	"NvimTreeNormal",
-	"NvimTreeNormalNC",
-	"NvimTreeWinSeparator",
-
-	"TelescopeNormal",
-	"TelescopeBorder",
-	"TelescopePromptBorder",
-	"TelescopeResultsBorder",
-	"TelescopePreviewBorder",
-
-	"BlinkCmpMenu",
-	"BlinkCmpMenuBorder",
-	"BlinkCmpDoc",
-	"BlinkCmpDocBorder",
-	"BlinkCmpSignature",
-	"BlinkCmpSignatureBorder",
-
-	"Pmenu",
-	"PmenuSel",
-	"PmenuSbar",
-	"PmenuThumb",
-
-	"DiagnosticFloatingError",
-	"DiagnosticFloatingWarn",
-	"DiagnosticFloatingInfo",
-	"DiagnosticFloatingHint",
-
-	"DiagnosticSignError",
-	"DiagnosticSignWarn",
-	"DiagnosticSignInfo",
-	"DiagnosticSignHint",
-
-	"WhichKeyBorder",
-	"NoiceFormat",
-	"NoiceLspProgress",
-}
-
 local function transparent_everything()
-	for _, group in ipairs(groups) do
-		if vim.fn.hlexists(group) == 1 then
-			vim.api.nvim_set_hl(0, group, {
-				bg = "NONE",
-				ctermbg = "NONE",
-			})
-		end
-	end
-end
+	vim.schedule(function()
+		local groups = {
+			-- Базовый интерфейс
+			"Normal",
+			"NormalNC",
+			"NormalFloat",
+			"FloatBorder",
+			"FloatTitle",
+			"SignColumn",
+			"LineNr",
+			"CursorLineNr",
+			"EndOfBuffer",
 
-vim.api.nvim_create_autocmd({ "VimEnter", "ColorScheme" }, {
+			-- Панели и статусбары
+			"StatusLine",
+			"StatusLineNC",
+			"WinSeparator",
+			"VertSplit",
+
+			-- Дерево файлов (Neo-tree / NvimTree)
+			"NeoTreeNormal",
+			"NeoTreeNormalNC",
+			"NeoTreeWinSeparator",
+			"NvimTreeNormal",
+			"NvimTreeNormalNC",
+			"NvimTreeWinSeparator",
+
+			-- Телескоп (Telescope) — окна поиска
+			"TelescopeNormal",
+			"TelescopeBorder",
+			"TelescopePromptBorder",
+			"TelescopeResultsBorder",
+			"TelescopePreviewBorder",
+
+			-- Окна автодополнения (Blink / Cmp)
+			"BlinkCmpMenu",
+			"BlinkCmpMenuBorder",
+			"BlinkCmpDoc",
+			"BlinkCmpDocBorder",
+			"BlinkCmpSignature",
+			"BlinkCmpSignatureBorder",
+			"Pmenu",
+			"PmenuSel",
+			"PmenuSbar",
+			"PmenuThumb",
+
+			-- Окна диагностики (ошибки, предупреждения LSP)
+			"DiagnosticFloatingError",
+			"DiagnosticFloatingWarn",
+			"DiagnosticFloatingInfo",
+			"DiagnosticFloatingHint",
+			"DiagnosticSignError",
+			"DiagnosticSignWarn",
+			"DiagnosticSignInfo",
+			"DiagnosticSignHint",
+
+			-- Какие-либо другие плавающие окна (WhichKey, Noice и т.д.)
+			"WhichKeyBorder",
+			"NoiceFormat",
+			"NoiceLspProgress",
+		}
+
+		for _, group in ipairs(groups) do
+			if vim.fn.hlexists(group) == 1 then
+				vim.cmd(string.format("hi %s guibg=NONE ctermbg=NONE", group))
+			end
+		end
+	end)
+end
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		vim.api.nvim_set_hl(0, "WinBar", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "WinBarNC", { bg = "NONE" })
+	end,
+})
+
+-- применить сразу при запуске
+vim.api.nvim_set_hl(0, "WinBar", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "WinBarNC", { bg = "NONE" })
+-- Применяем при старте Neovim и при каждой смене темы
+vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+	pattern = "*",
 	callback = transparent_everything,
 })

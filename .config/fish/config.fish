@@ -1,13 +1,13 @@
 if status is-interactive
     # Starship custom prompt
-    #starship init fish | source
+    # command -v starship &> /dev/null && starship init fish | source
 
     # Direnv + Zoxide
     command -v direnv &>/dev/null && direnv hook fish | source
     command -v zoxide &>/dev/null && zoxide init fish --cmd cd | source
 
     # Better ls
-    alias ls='eza --icons --group-directories-first -1'
+    command -v eza &>/dev/null && alias ls='eza --icons --group-directories-first -1'
 
     # Abbrs
     abbr lg lazygit
@@ -41,5 +41,6 @@ if status is-interactive
     end
 
     # Custom fish config
-    source ~/.config/caelestia/user-config.fish 2>/dev/null
+    set -q XDG_CONFIG_HOME && set -l cConf $XDG_CONFIG_HOME/caelestia || set -l cConf $HOME/.config/caelestia
+    source $cConf/user-config.fish 2>/dev/null
 end

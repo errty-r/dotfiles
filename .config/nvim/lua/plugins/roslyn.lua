@@ -4,23 +4,33 @@ return {
 	ft = { "cs", "razor" },
 
 	opts = {
-		broad_search = true,
+		broad_search = false,
 		lock_target = false,
 		silent = false,
 
-		filewatching = "auto",
+		filewatching = "roslyn",
 
 		config = {
+			cmd = {
+				"roslyn-language-server",
+				"--stdio",
+			},
+
 			settings = {
-				["csharp|completion"] = {
-					dotnet_show_completion_items_from_unimported_namespaces = true,
-					dotnet_show_name_completion_suggestions = true,
-					dotnet_provide_regex_completions = true,
+				["csharp|code_lens"] = {
+					dotnet_enable_references_code_lens = true,
+					dotnet_enable_tests_code_lens = true,
 				},
 
 				["csharp|background_analysis"] = {
 					dotnet_compiler_diagnostics_scope = "fullSolution",
 					dotnet_analyzer_diagnostics_scope = "fullSolution",
+				},
+
+				["csharp|completion"] = {
+					dotnet_show_completion_items_from_unimported_namespaces = true,
+					dotnet_show_name_completion_suggestions = true,
+					dotnet_provide_regex_completions = true,
 				},
 
 				["csharp|symbol_search"] = {
@@ -29,11 +39,6 @@ return {
 
 				["csharp|formatting"] = {
 					dotnet_organize_imports_on_format = true,
-				},
-
-				["csharp|code_lens"] = {
-					dotnet_enable_references_code_lens = true,
-					dotnet_enable_tests_code_lens = true,
 				},
 
 				["csharp|inlay_hints"] = {

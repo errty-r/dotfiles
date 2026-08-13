@@ -4,7 +4,7 @@ return {
 	ft = { "cs", "razor" },
 
 	opts = {
-		broad_search = false,
+		broad_search = true,
 		lock_target = false,
 		silent = false,
 
@@ -17,6 +17,10 @@ return {
 			},
 
 			settings = {
+				["csharp"] = {
+					dotnet_enable_document_formatting = true,
+					dotnet_analyzer_diagnostics_scope = "fullSolution",
+				},
 				["csharp|code_lens"] = {
 					dotnet_enable_references_code_lens = true,
 					dotnet_enable_tests_code_lens = true,
@@ -42,6 +46,8 @@ return {
 				},
 
 				["csharp|inlay_hints"] = {
+					dotnet_show_completion_items_from_unimported_namespaces = true,
+					dotnet_show_name_completion_suggestions = true,
 					dotnet_enable_inlay_hints_for_parameters = true,
 					dotnet_enable_inlay_hints_for_types = true,
 					dotnet_enable_inlay_hints_for_literal_values = true,
@@ -51,5 +57,8 @@ return {
 				},
 			},
 		},
+		config = function(_, opts)
+			require("roslyn").setup(opts)
+		end,
 	},
 }

@@ -83,3 +83,29 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
 	pattern = "*",
 	callback = transparent_everything,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		vim.schedule(function()
+			if not vim.api.nvim_buf_is_valid(args.buf) then
+				return
+			end
+
+			-- Убираем LazyVim: <leader>cr -> Rename
+			pcall(vim.keymap.del, "n", "<leader>cr", {
+				buffer = args.buf,
+			})
+
+			-- Ставим свой mapping
+			vim.keymap.set("n", "<leader>cr", Snacks.picker.lsp_references, {
+				buffer = args.buf,
+				desc = "References",
+			})
+
+			vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, {
+				buffer = args.buf,
+				desc = "Rename",
+			})
+		end)
+	end,
+})

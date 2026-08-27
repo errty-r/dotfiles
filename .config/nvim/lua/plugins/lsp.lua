@@ -37,6 +37,31 @@ return {
 				enabled = true,
 			},
 			servers = {
+				["*"] = {
+					keys = {
+						-- Убираем LazyVim rename
+						{ "<leader>cr", false },
+
+						-- Ставим references
+						{
+							"<leader>cr",
+							function()
+								Snacks.picker.lsp_references()
+							end,
+							desc = "References",
+							has = "references",
+						},
+
+						-- Rename оставляем на cR
+						{
+							"<leader>cR",
+							vim.lsp.buf.rename,
+							desc = "Rename",
+							has = "rename",
+						},
+					},
+				},
+
 				-- Оставляем блокировку дубликата, чтобы он не мешал
 				roslyn_ls = {
 					settings = {

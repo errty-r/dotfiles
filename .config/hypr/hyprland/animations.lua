@@ -1,7 +1,7 @@
 hl.config({
-    animations = {
-        enabled = true,
-    },
+	animations = {
+		enabled = true,
+	},
 })
 
 -- Animation curves
@@ -21,11 +21,11 @@ hl.animation({ leaf = "windowsMove", enabled = true, speed = 6, bezier = "standa
 hl.animation({ leaf = "workspaces", enabled = true, speed = 5, bezier = "standard" })
 
 hl.animation({
-    leaf    = "specialWorkspace",
-    enabled = true,
-    speed   = 4,
-    bezier  = "specialWorkSwitch",
-    style   = "slidefadevert 15%"
+	leaf = "specialWorkspace",
+	enabled = true,
+	speed = 4,
+	bezier = "specialWorkSwitch",
+	style = "slidefadevert 15%",
 })
 hl.animation({ leaf = "fade", enabled = true, speed = 6, bezier = "standard" })
 hl.animation({ leaf = "fadeDim", enabled = true, speed = 6, bezier = "standard" })

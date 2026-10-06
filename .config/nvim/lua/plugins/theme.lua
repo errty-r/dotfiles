@@ -1,42 +1,79 @@
 return {
-	-- Отключаем дефолтную тему LazyVim (tokyonight), если хотите использовать gruvbox
 	{
-		"LazyVim/LazyVim",
+		"ellisonleao/gruvbox.nvim",
+		priority = 1000,
 		opts = {
-			colorscheme = "gruvbox",
+			transparent_mode = true,
+		},
+	},
+	{
+		"navarasu/onedark.nvim",
+		priority = 1000,
+		opts = {
+			style = "cool",
+			transparent = true,
+		},
+	},
+	{
+		"rebelot/kanagawa.nvim",
+		priority = 1000,
+		opts = {
+			transparent = true,
+			theme = "dragon",
+		},
+	},
+	{
+		"ribru17/bamboo.nvim",
+		priority = 1000,
+		opts = {
+			transparent = true,
+			style = "vulgaris", -- варианты: 'vulgaris', 'multiplex'
+		},
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		opts = {
+			transparent = true,
+			flavour = "latte", -- latte, frappe, macchiato, mocha
+		},
+	},
+	{
+		"craftzdog/solarized-osaka.nvim",
+		priority = 1000,
+		opts = {
+			transparent = true, -- Optional: matches terminal background
+		},
+	},
+	{
+		"EdenEast/nightfox.nvim",
+		priority = 1000,
+		opts = {
+			options = {
+				transparent = true, -- Включаем прозрачность
+				styles = {
+					comments = "italic",
+					keywords = "bold",
+					types = "italic,bold",
+				},
+			},
+		},
+	},
+	{
+		"scottmckendry/cyberdream.nvim",
+		priority = 1000,
+		opts = {
+			transparent = true,
+			italic_comments = true,
+			hide_fillchars = true,
 		},
 	},
 
-	-- Настройка самой темы Gruvbox
 	{
-		"ellisonleao/gruvbox.nvim",
-		priority = 1000, -- Загружаем тему первой
-		config = function()
-			require("gruvbox").setup({
-				transparent_mode = true, -- Включает прозрачность для базовых элементов
-			})
-		end,
+		"LazyVim/LazyVim",
+		opts = {
+			colorscheme = "onedark",
+		},
 	},
 }
-
--- return {
--- 	-- отключаем дефолтную тему lazyvim (tokyonight), если хотите использовать gruvbox
--- 	{
--- 		"lazyvim/lazyvim",
--- 		opts = {
--- 			colorscheme = "onedark",
--- 		},
--- 	},
---
--- 	-- настройка самой темы gruvbox
--- 	{
--- 		"navarasu/onedark.nvim",
--- 		priority = 1000, -- загружаем тему первой
--- 		config = function()
--- 			require("onedark").setup({
--- 				style = "darker",
--- 				transparent = true, -- включает прозрачность для базовых элементов
--- 			})
--- 		end,
--- 	},
--- }

@@ -44,3 +44,10 @@ if status is-interactive
     set -q XDG_CONFIG_HOME && set -l cConf $XDG_CONFIG_HOME/caelestia || set -l cConf $HOME/.config/caelestia
     source $cConf/user-config.fish 2>/dev/null
 end
+
+fish_add_path /home/errty/.spicetify
+
+# Docker group
+if not contains docker (id -Gn | string split " ")
+    exec sg docker -c fish
+end

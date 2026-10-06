@@ -1,7 +1,7 @@
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true -- использовать настоящие табы
+vim.opt.tabstop = 4 -- Если файл пустой или новый, по дефолту будет 4
+vim.opt.softtabstop = -1 -- Магическое значение! Заставляет softtabstop ВСЕГДА быть равным shiftwidth
+vim.opt.shiftwidth = 4 -- Шаг отступа по умолчанию
+vim.opt.expandtab = true -- Превращать табы в пробелы
 
 vim.opt.smarttab = true
 vim.opt.autoindent = true

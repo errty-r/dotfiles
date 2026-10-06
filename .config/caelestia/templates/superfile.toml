@@ -1,0 +1,71 @@
+##############################################
+#                                            #
+#              Caelestia Theme               #
+#                                            #
+##############################################
+
+###############################################################################
+#                           Code Syntax Highlighting                          #
+###############################################################################
+
+code_syntax_highlight = "gruvbox"
+
+###############################################################################
+#                                 Base Colors                                 #
+###############################################################################
+
+#-- Full Screen
+full_screen_fg = "#{{ onSurface.hex }}"
+full_screen_bg = "#{{ surface.hex }}"
+
+#-- Gradient
+gradient_color = ["#{{ primary.hex }}", "#{{ tertiary.hex }}"]
+
+#-- Directory icon
+directory_icon_color = "#{{ primary.hex }}"
+
+#-- File Panel
+file_panel_fg = "#{{ onSurface.hex }}"
+file_panel_bg = "#{{ surface.hex }}"
+file_panel_border = "#{{ outline.hex }}"
+file_panel_border_active = "#{{ primary.hex }}"
+file_panel_top_directory_icon = "#{{ primary.hex }}"
+file_panel_top_path = "#{{ secondary.hex }}"
+file_panel_item_selected_fg = "#{{ onPrimary.hex }}"
+file_panel_item_selected_bg = "#{{ primary.hex }}"
+
+#-- Footer
+footer_fg = "#{{ onSurface.hex }}"
+footer_bg = "#{{ surface.hex }}"
+footer_border = "#{{ outline.hex }}"
+footer_border_active = "#{{ secondary.hex }}"
+
+#-- Sidebar
+sidebar_fg = "#{{ onSurface.hex }}"
+sidebar_bg = "#{{ surface.hex }}"
+sidebar_title = "#{{ primary.hex }}"
+sidebar_border = "#{{ outline.hex }}"
+sidebar_border_active = "#{{ secondary.hex }}"
+sidebar_item_selected_fg = "#{{ onPrimary.hex }}"
+sidebar_item_selected_bg = "#{{ primary.hex }}"
+sidebar_divider = "#{{ outline.hex }}"
+
+#-- Modals
+modal_fg = "#{{ onSurface.hex }}"
+modal_bg = "#{{ surface.hex }}"
+modal_border_active = "#{{ primary.hex }}"
+modal_cancel_fg = "#{{ onError.hex }}"
+modal_cancel_bg = "#{{ error.hex }}"
+modal_confirm_fg = "#{{ onPrimary.hex }}"
+modal_confirm_bg = "#{{ primary.hex }}"
+
+#-- Help Menu
+help_menu_hotkey = "#{{ primary.hex }}"
+help_menu_title = "#{{ tertiary.hex }}"
+
+#-- Special
+cursor = "#{{ secondary.hex }}"
+correct = "#{{ tertiary.hex }}"
+error = "#{{ error.hex }}"
+hint = "#{{ primary.hex }}"
+cancel = "#{{ error.hex }}"

@@ -105,6 +105,65 @@ return {
 							dotnet_enable_document_formatting = true,
 						},
 					},
+
+					vtsls = {
+						settings = {
+							typescript = {
+								updateImportsOnFileMove = { enabled = "always" },
+								suggest = {
+									completeFunctionCalls = true,
+								},
+								inlayHints = {
+									parameterNames = { enabled = "all" },
+									parameterTypes = { enabled = "all" },
+									variableTypes = { enabled = "all" },
+								},
+							},
+							javascript = {
+								updateImportsOnFileMove = { enabled = "always" },
+								suggest = {
+									completeFunctionCalls = true,
+								},
+							},
+						},
+					},
+
+					-- НАСТРОЙКА ESLINT: Выключается, если есть Oxlint
+					eslint = {
+						root_dir = function(filename)
+							local util = require("lspconfig.util")
+							-- Ищем oxlint конфиг
+							local has_oxlint = util.root_pattern(".oxlintrc.json", "oxlint.json")(filename)
+
+							-- Если oxlint найден, возвращаем nil (ESLint НЕ запустится в этом проекте)
+							if has_oxlint then
+								return nil
+							end
+
+							-- Иначе запускаем ESLint как обычно
+							return util.root_pattern(
+								"eslint.config.js",
+								"eslint.config.mjs",
+								".eslintrc.json",
+								"package.json"
+							)(filename)
+						end,
+						settings = {
+							workingDirectories = { mode = "location" },
+						},
+					},
+
+					-- НАСТРОЙКА OXLINT: Включается ТОЛЬКО если в проекте есть его конфиг
+					oxlint = {
+						root_dir = function(filename)
+							local util = require("lspconfig.util")
+							return util.root_pattern(".oxlintrc.json", "oxlint.json")(filename)
+						end,
+					},
+
+					cssls = {},
+
+					tailwindcss = {},
 				},
 			},
 		},

@@ -1,0 +1,8 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export BAT_THEME:base16
+SETUVAR --export EDITOR:nvim
+SETUVAR --export HTTPS_PROXY:http\x3a//127\x2e0\x2e0\x2e1\x3a10809
+SETUVAR --export HTTP_PROXY:http\x3a//127\x2e0\x2e0\x2e1\x3a10809
+SETUVAR --export OPENROUTER_API_KEY:sk\x2dor\x2dv1\x2d93eccbb89f84fa82b6b45f57165ae611b1da33b8f37e2c300ff5bb6933ac1124
+SETUVAR fish_user_paths:/home/errty/\x2edotnet/tools\x1e/home/errty/\x2espicetify\x1e/home/errty/\x2elocal/bin

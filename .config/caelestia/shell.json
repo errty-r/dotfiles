@@ -1,9 +1,23 @@
 {
+    "appearance": {
+        "transparency": {
+            "enabled": false
+        }
+    },
+    "background": {
+        "wallpaperEnabled": true
+    },
     "bar": {
+        "activeWindow": {
+            "compact": true,
+            "inverted": true
+        },
         "clock": {
             "background": true,
             "showDate": true
         },
+        "persistent": true,
+        "showOnHover": true,
         "status": {
             "showAudio": true,
             "showBattery": true,
@@ -13,11 +27,62 @@
             "showNetwork": true,
             "showWifi": false
         },
+        "statusIcons": [
+            {
+                "enabled": true,
+                "id": "lockStatus"
+            },
+            {
+                "enabled": true,
+                "id": "audio"
+            },
+            {
+                "enabled": true,
+                "id": "microphone"
+            },
+            {
+                "enabled": true,
+                "id": "kbLayout"
+            },
+            {
+                "enabled": true,
+                "id": "network"
+            },
+            {
+                "enabled": false,
+                "id": "bluetooth"
+            },
+            {
+                "enabled": true,
+                "id": "battery"
+            }
+        ],
         "tray": {
-            "background": false,
+            "background": true,
             "compact": true,
-            "recolour": false
+            "recolour": true
+        },
+        "workspaces": {
+            "activeIndicator": true,
+            "activeTrail": false,
+            "maxWindowIcons": 1,
+            "occupiedBg": false,
+            "perMonitorWorkspaces": true,
+            "showWindows": true,
+            "showWindowsOnSpecialWorkspaces": true,
+            "shown": 5
         }
+    },
+    "dashboard": {
+        "enabled": true,
+        "performance": {
+            "showBattery": true,
+            "showCpu": true,
+            "showGpu": true,
+            "showMemory": true
+        },
+        "resourceUpdateInterval": 1000,
+        "showOnHover": true
     },
     "general": {
         "apps": {
@@ -39,9 +104,22 @@
         }
     },
     "launcher": {
+        "actionPrefix": ":",
+        "showOnHover": true,
         "vimKeybinds": true
     },
+    "nexus": {
+        "networkRescanInterval": 20000
+    },
     "services": {
-        "useFahrenheit": false
+        "audioIncrement": 0.05,
+        "brightnessIncrement": 0.05,
+        "useFahrenheit": false,
+        "weatherUnits": "Celsius"
+    },
+    "utilities": {
+        "cards": {
+            "keepAwake": true
+        }
     }
 }

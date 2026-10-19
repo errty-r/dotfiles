@@ -49,40 +49,6 @@
 -- 	},
 -- }
 
--- return {
--- 	{
--- 		"f-person/auto-dark-mode.nvim",
--- 		opts = {
--- 			update_interval = 1500, -- проверка системной темы каждые 1500 мс (1.5 секунда)
--- 			set_dark_mode = function()
--- 				vim.api.nvim_set_option_value("background", "dark", {})
--- 				vim.cmd("colorscheme kanagawa")
--- 			end,
--- 			set_light_mode = function()
--- 				vim.api.nvim_set_option_value("background", "light", {})
--- 				vim.cmd("colorscheme kanagawa")
--- 			end,
--- 		},
--- 	},
--- }
-
--- return {
--- 	{
--- 		"f-person/auto-dark-mode.nvim",
--- 		opts = {
--- 			update_interval = 1500, -- проверка системной темы каждые 1500 мс (1.5 секунда)
--- 			set_dark_mode = function()
--- 				vim.api.nvim_set_option_value("background", "dark", {})
--- 				vim.cmd("colorscheme nightfox")
--- 			end,
--- 			set_light_mode = function()
--- 				vim.api.nvim_set_option_value("background", "light", {})
--- 				vim.cmd("colorscheme nightfox")
--- 			end,
--- 		},
--- 	},
--- }
-
 return {
 	{
 		"f-person/auto-dark-mode.nvim",
@@ -90,12 +56,46 @@ return {
 			update_interval = 1500, -- проверка системной темы каждые 1500 мс (1.5 секунда)
 			set_dark_mode = function()
 				vim.api.nvim_set_option_value("background", "dark", {})
-				vim.cmd("colorscheme gruvbox")
+				vim.cmd("colorscheme kanagawa-dragon")
 			end,
 			set_light_mode = function()
 				vim.api.nvim_set_option_value("background", "light", {})
-				vim.cmd("colorscheme gruvbox")
+				vim.cmd("colorscheme kanagawa-lotus")
 			end,
 		},
 	},
 }
+
+-- return {
+-- 	{
+-- 		"f-person/auto-dark-mode.nvim",
+-- 		opts = {
+-- 			update_interval = 1500, -- проверка системной темы каждые 1500 мс (1.5 секунда)
+-- 			set_dark_mode = function()
+-- 				vim.api.nvim_set_option_value("background", "dark", {})
+-- 				vim.cmd("colorscheme nightfox")
+-- 			end,
+-- 			set_light_mode = function()
+-- 				vim.api.nvim_set_option_value("background", "light", {})
+-- 				vim.cmd("colorscheme nightfox")
+-- 			end,
+-- 		},
+-- 	},
+-- }
+
+-- return {
+-- 	{
+-- 		"f-person/auto-dark-mode.nvim",
+-- 		opts = {
+-- 			update_interval = 1500, -- проверка системной темы каждые 1500 мс (1.5 секунда)
+-- 			set_dark_mode = function()
+-- 				vim.api.nvim_set_option_value("background", "dark", {})
+-- 				vim.cmd("colorscheme gruvbox")
+-- 			end,
+-- 			set_light_mode = function()
+-- 				vim.api.nvim_set_option_value("background", "light", {})
+-- 				vim.cmd("colorscheme gruvbox")
+-- 			end,
+-- 		},
+-- 	},
+-- }

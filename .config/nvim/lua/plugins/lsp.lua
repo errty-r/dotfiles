@@ -105,66 +105,116 @@ return {
 							dotnet_enable_document_formatting = true,
 						},
 					},
-
-					vtsls = {
-						settings = {
-							typescript = {
-								updateImportsOnFileMove = { enabled = "always" },
-								suggest = {
-									completeFunctionCalls = true,
-								},
-								inlayHints = {
-									parameterNames = { enabled = "all" },
-									parameterTypes = { enabled = "all" },
-									variableTypes = { enabled = "all" },
-								},
-							},
-							javascript = {
-								updateImportsOnFileMove = { enabled = "always" },
-								suggest = {
-									completeFunctionCalls = true,
-								},
-							},
-						},
-					},
-
-					-- НАСТРОЙКА ESLINT: Выключается, если есть Oxlint
-					eslint = {
-						root_dir = function(filename)
-							local util = require("lspconfig.util")
-							-- Ищем oxlint конфиг
-							local has_oxlint = util.root_pattern(".oxlintrc.json", "oxlint.json")(filename)
-
-							-- Если oxlint найден, возвращаем nil (ESLint НЕ запустится в этом проекте)
-							if has_oxlint then
-								return nil
-							end
-
-							-- Иначе запускаем ESLint как обычно
-							return util.root_pattern(
-								"eslint.config.js",
-								"eslint.config.mjs",
-								".eslintrc.json",
-								"package.json"
-							)(filename)
-						end,
-						settings = {
-							workingDirectories = { mode = "location" },
-						},
-					},
-
-					-- НАСТРОЙКА OXLINT: Включается ТОЛЬКО если в проекте есть его конфиг
-					oxlint = {
-						root_dir = function(filename)
-							local util = require("lspconfig.util")
-							return util.root_pattern(".oxlintrc.json", "oxlint.json")(filename)
-						end,
-					},
-
-					cssls = {},
-
-					tailwindcss = {},
 				},
+
+				vtsls = {
+					settings = {
+						vtsls = {
+							autoUseWorkspaceTsdk = true,
+							experimental = {
+								completion = {
+									enableServerSideFuzzyMatch = true,
+								},
+							},
+						},
+						typescript = {
+							updateImportsOnFileMove = { enabled = "always" },
+							completion = {
+								completeFunctionCalls = true,
+								preferTypeOnlyAutoImports = true,
+							},
+
+							format = {
+								enable = false,
+							},
+
+							inlayHints = {
+								enumMemberValues = { enabled = true },
+								functionLikeReturnTypes = { enabled = true },
+								parameterNames = { enabled = "all" },
+								parameterTypes = { enabled = true },
+								propertyDeclarationTypes = { enabled = true },
+								variableTypes = { enabled = true },
+							},
+
+							tsserver = {
+								maxTsServerMemory = 8192,
+								globalPlugins = {},
+								experimental = {
+									enableProjectDiagnostics = false,
+								},
+							},
+						},
+
+						javascript = {
+							format = { enable = false },
+							inlayHints = { parameterNames = { enabled = "all" } },
+						},
+					},
+
+					keys = {
+						{
+							"<leader>cM",
+							function()
+								vim.lsp.buf.execute_command({ command = "typescript.addMissingImports" })
+							end,
+							desc = "Add missing imports",
+						},
+						{
+							"<leader>cu",
+							function()
+								vim.lsp.buf.execute_command({ command = "typescript.removeUnusedImports" })
+							end,
+							desc = "Remove unused imports",
+						},
+						{
+							"<leader>co",
+							function()
+								vim.lsp.buf.execute_command({ command = "typescript.organizeImports" })
+							end,
+							desc = "Organize Imports",
+						},
+						{
+							"<leader>cD",
+							function()
+								vim.lsp.buf.execute_command({ command = "typescript.fixAllDiagnostics" })
+							end,
+							desc = "Fix all diagnostics",
+						},
+					},
+				},
+
+				eslint = {
+					root_dir = function(filename)
+						local util = require("lspconfig.util")
+						local has_oxlint = util.root_pattern(".oxlintrc.json", "oxlint.json")(filename)
+
+						if has_oxlint then
+							return nil
+						end
+
+						return util.root_pattern(
+							"eslint.config.js",
+							"eslint.config.mjs",
+							".eslintrc.json",
+							"package.json"
+						)(filename)
+					end,
+					settings = {
+						workingDirectories = { mode = "location" },
+					},
+				},
+
+				oxlint = {
+					root_dir = function(filename)
+						local util = require("lspconfig.util")
+						return util.root_pattern(".oxlintrc.json", "oxlint.json")(filename)
+					end,
+				},
+
+				cssls = {},
+
+				tailwindcss = {},
 			},
 		},
 	},

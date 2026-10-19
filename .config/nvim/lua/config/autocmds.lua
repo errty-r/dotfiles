@@ -1,111 +1,124 @@
-local function transparent_everything()
-	vim.schedule(function()
-		local groups = {
-			-- Базовый интерфейс
-			"Normal",
-			"NormalNC",
-			"NormalFloat",
-			"FloatBorder",
-			"FloatTitle",
-			"SignColumn",
-			"LineNr",
-			"CursorLineNr",
-			"EndOfBuffer",
+local function make_cmdline_transparent()
+	local groups = {
+		-- Noice cmdline
+		"NoiceCmdline",
+		"NoiceCmdlinePopup",
+		"NoiceCmdlinePopupBorder",
+		"NoiceCmdlinePopupTitle",
+		"NoiceCmdlinePrompt",
+		"NoiceCmdlineIcon",
 
-			-- Панели и статусбары
-			"StatusLine",
-			"StatusLineNC",
-			"WinSeparator",
-			"VertSplit",
+		-- Разные режимы командной строки
+		"NoiceCmdlineIconSearch",
+		"NoiceCmdlineIconFilter",
+		"NoiceCmdlineIconCmdline",
+		"NoiceCmdlineIconLua",
+		"NoiceCmdlineIconHelp",
+		"NoiceCmdlineIconInput",
+		"NoiceCmdlineIconCalculator",
 
-			-- Дерево файлов (Neo-tree / NvimTree)
-			"NeoTreeNormal",
-			"NeoTreeNormalNC",
-			"NeoTreeWinSeparator",
-			"NvimTreeNormal",
-			"NvimTreeNormalNC",
-			"NvimTreeWinSeparator",
+		-- Базовые группы окон
+		"NormalFloat",
+		"FloatBorder",
+		"FloatTitle",
+		"Pmenu",
+	}
 
-			-- Телескоп (Telescope) — окна поиска
-			"TelescopeNormal",
-			"TelescopeBorder",
-			"TelescopePromptBorder",
-			"TelescopeResultsBorder",
-			"TelescopePreviewBorder",
-
-			-- Окна автодополнения (Blink / Cmp)
-			"BlinkCmpMenu",
-			"BlinkCmpMenuBorder",
-			"BlinkCmpDoc",
-			"BlinkCmpDocBorder",
-			"BlinkCmpSignature",
-			"BlinkCmpSignatureBorder",
-			"Pmenu",
-			"PmenuSel",
-			"PmenuSbar",
-			"PmenuThumb",
-
-			-- Окна диагностики (ошибки, предупреждения LSP)
-			"DiagnosticFloatingError",
-			"DiagnosticFloatingWarn",
-			"DiagnosticFloatingInfo",
-			"DiagnosticFloatingHint",
-			"DiagnosticSignError",
-			"DiagnosticSignWarn",
-			"DiagnosticSignInfo",
-			"DiagnosticSignHint",
-
-			-- Какие-либо другие плавающие окна (WhichKey, Noice и т.д.)
-			"WhichKeyBorder",
-			"NoiceFormat",
-			"NoiceLspProgress",
-		}
-
-		for _, group in ipairs(groups) do
-			if vim.fn.hlexists(group) == 1 then
-				vim.cmd(string.format("hi %s guibg=NONE ctermbg=NONE", group))
-			end
-		end
-	end)
+	for _, group in ipairs(groups) do
+		vim.api.nvim_set_hl(0, group, {
+			bg = "NONE",
+		})
+	end
 end
+
+local group = vim.api.nvim_create_augroup("TransparentCmdline", { clear = true })
+
 vim.api.nvim_create_autocmd("ColorScheme", {
+	group = group,
 	callback = function()
-		vim.api.nvim_set_hl(0, "WinBar", { bg = "NONE" })
-		vim.api.nvim_set_hl(0, "WinBarNC", { bg = "NONE" })
+		vim.schedule(make_cmdline_transparent)
 	end,
 })
 
--- применить сразу при запуске
-vim.api.nvim_set_hl(0, "WinBar", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "WinBarNC", { bg = "NONE" })
--- Применяем при старте Neovim и при каждой смене темы
-vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
-	pattern = "*",
-	callback = transparent_everything,
-})
-
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(args)
-		vim.schedule(function()
-			if not vim.api.nvim_buf_is_valid(args.buf) then
-				return
-			end
-
-			-- Убираем LazyVim: <leader>cr -> Rename
-			pcall(vim.keymap.del, "n", "<leader>cr", {
-				buffer = args.buf,
-			})
-
-			-- Ставим свой mapping
-			vim.keymap.set("n", "<leader>cr", Snacks.picker.lsp_references, {
-				buffer = args.buf,
-				desc = "References",
-			})
-
-			vim.keymap.set("n", "<leader>cR", vim.lsp.buf.rename, {
-				buffer = args.buf,
-				desc = "Rename",
-			})
-		end)
+vim.api.nvim_create_autocmd("VimEnter", {
+	group = group,
+	callback = function()
+		vim.schedule(make_cmdline_transparent)
 	end,
 })
+
+-- Повторно применяем после загрузки плагинов
+vim.api.nvim_create_autocmd("User", {
+	group = group,
+	pattern = "VeryLazy",
+	callback = function()
+		vim.schedule(make_cmdline_transparent)
+	end,
+})
+
+local function fix_noice_transparency()
+	local groups = {
+		"Normal",
+		"NormalNC",
+		"NormalFloat",
+		"MsgArea",
+		"NoiceCmdline",
+		"NoiceCmdlinePopup",
+		"NoiceCmdlinePopupBorder",
+		"FloatBorder",
+
+		-- Иконка > в командной строке Noice
+		"NoiceCmdlineIcon",
+		"NoiceCmdlineIconCmdline",
+
+		-- Иконки других режимов cmdline
+		"NoiceCmdlineIconSearch",
+		"NoiceCmdlineIconFilter",
+		"NoiceCmdlineIconLua",
+		"NoiceCmdlineIconHelp",
+		"NoiceCmdlineIconInput",
+		"NoiceCmdlineIconCalculator",
+
+		-- Группа, от которой может наследоваться фон
+		"DiagnosticSignInfo",
+	}
+
+	for _, name in ipairs(groups) do
+		local hl = vim.api.nvim_get_hl(0, {
+			name = name,
+			link = false,
+		})
+
+		-- Сохраняем fg и остальные атрибуты, меняем только фон
+		hl.bg = "NONE"
+		hl.ctermbg = "NONE"
+
+		vim.api.nvim_set_hl(0, name, hl)
+	end
+end
+
+local group = vim.api.nvim_create_augroup("KanagawaNoiceTransparency", { clear = true })
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = group,
+	callback = function()
+		vim.schedule(fix_noice_transparency)
+	end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+	group = group,
+	pattern = "VeryLazy",
+	callback = function()
+		vim.schedule(fix_noice_transparency)
+	end,
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+	group = group,
+	callback = function()
+		vim.schedule(fix_noice_transparency)
+	end,
+})
+
+vim.schedule(fix_noice_transparency)

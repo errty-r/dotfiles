@@ -16,10 +16,48 @@ return {
 	},
 	{
 		"rebelot/kanagawa.nvim",
+		lazy = false,
 		priority = 1000,
 		opts = {
 			transparent = true,
-			theme = "dragon",
+			theme = "wave",
+			overrides = function(colors)
+				local theme = colors.theme
+				theme.ui.bg = "NONE"
+				theme.ui.bg_gutter = "NONE"
+				theme.ui.bg_m1 = "NONE"
+				theme.ui.bg_m2 = "NONE"
+				theme.ui.bg_m3 = "NONE"
+				theme.ui.bg_p1 = "NONE"
+				theme.ui.bg_p2 = "NONE"
+				theme.ui.bg_p3 = "NONE"
+				theme.ui.float.bg = "NONE"
+				theme.ui.float.bg_border = "NONE"
+
+				return {
+					NormalFloat = { bg = "NONE" },
+					FloatBorder = { bg = "NONE" },
+					FloatTitle = { bg = "NONE" },
+					NormalNC = { bg = "NONE" },
+
+					LineNr = { bg = "NONE" },
+					CursorLineNr = { bg = "NONE" },
+					SignColumn = { bg = "NONE" },
+					FoldColumn = { bg = "NONE" },
+
+					-- Фикс для Noice Cmdline (внутри Kanagawa)
+					NoiceCmdline = { bg = "NONE" },
+					NoiceCmdlinePopup = { bg = "NONE" },
+					NoiceCmdlinePopupBorder = { bg = "NONE" },
+					NoiceCmdlinePrompt = { bg = "NONE" },
+
+					-- Телескоп
+					TelescopeNormal = { bg = "NONE" },
+					TelescopeBorder = { bg = "NONE" },
+					TelescopePromptNormal = { bg = "NONE" },
+					TelescopePromptBorder = { bg = "NONE" },
+				}
+			end,
 		},
 	},
 	{
@@ -73,7 +111,7 @@ return {
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "onedark",
+			colorscheme = "kanagawa",
 		},
 	},
 }
